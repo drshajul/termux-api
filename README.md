@@ -2,22 +2,21 @@
 
 [![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://github.com/shajul/termux.git)
 
-> termux-api is here, made with :heart:
+termux-api is here, made with :heart:
 
 ## What is termux-api?
-> termux-api is a python module to access the [termux-api](https://wiki.termux.com/wiki/Termux:API)
-> To ease the access of these beautiful api's which 
-> can be really useful for IOT projects deploying using your own android phone.
-> This module is heavily inspired by https://github.com/azwyane/pimux
+termux-api is a python module to access the [termux-api](https://wiki.termux.com/wiki/Termux:API)
+To ease the access of these beautiful api's which 
+can be really useful for IOT projects deploying using your own android phone.
+This module is heavily inspired by https://github.com/azwyane/pimux
 
 ## Why to use termux-api?
-> For every pythonist and enthusiast termux-api can really ease hardware and software
-> access through termux-api.
+For every pythonist and enthusiast termux-api can really ease hardware and software
+access through termux-api.
 
 ## Special thanks
-  This module is heavily inspired by https://github.com/azwyane/pimux 
-
-> This project is originally located at [termux-api](https://github.com/shajul/termux-api)
+This module is heavily inspired by https://github.com/azwyane/pimux 
+This project is originally located at [termux-api](https://github.com/shajul/termux-api)
 
 ## Table of Contents
 - [Requirements](#Requirements)
@@ -44,14 +43,14 @@ You can always get the latest version of termux-api maintained here in the githu
 Goto to your terminal and type:
 
 ```sh
-git clone https://github.com/shajul/termux-api.git
-pip install wheel
+$ git clone https://github.com/shajul/termux-api.git
+$ python3 -m pip install wheel
+$ python3 -m pip install dist/termux_api*.whl
 ```
 
-Now add this to site packages by first building by being where the setup.py is:
+Or you can add this to site packages by first building it first:
 ```
 $ python3 setup.py sdist bdist_wheel
-
 $ python3 -m pip install -e <path to termux-api main dir>
 ```
 
@@ -60,7 +59,7 @@ Finally, you have it installed.
 ### Method-2
 
 **Install by pip**
-> The stable version is available in the Pypi, which you can download by:
+The stable version is available in the Pypi, which you can download by:
 
 ```
 $ python3 -m pip install termux-api
@@ -93,9 +92,9 @@ $ python
 
 ## Features
 
-> It is a side project of making use of android sensors and IOT projects. 
-> It has the feature of termux-api which can be easily used with
-> python projects.
+It is a side project of making use of android sensors and IOT projects. 
+It has the feature of termux-api which can be easily used with
+python projects.
 
 ---
 

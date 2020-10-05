@@ -1,0 +1,6 @@
+build  
+termux_api.egg-info
+venv
+*.pyc
+*~
+__pycache__

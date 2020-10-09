@@ -7,8 +7,8 @@ def liveSave(func, logfile = 'sensors.log'):
        saving the computed data to sensor.log file.
     """    
     with open(logfile, 'wb') as f:
-        process = subprocess.Popen(func, stdout=subprocess.PIPE,shell=True)
-        for c in iter(lambda: process.stdout.read(1), b''):
+        p = subprocess.Popen(func, stdout=subprocess.PIPE,shell=True)
+        for c in iter(lambda: p.stdout.read(1), b''):
             a=c.decode("utf-8") #to write to stdout needs to be decoded
             stdout.write(a)
             f.write(c)    #needs to write in byte like format

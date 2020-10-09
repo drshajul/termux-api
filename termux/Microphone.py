@@ -18,13 +18,14 @@ def record(file: str, limit: int = 0, **kwargs):
 
     Parameters
     ----------
-    file    file to record to
-    limit   record w/ limit (seconds, 0 = unlimited)
-    encoder record w/ encoder (aac, amr_wb, amr_nb)
-    bitrate record w/ bitrate (in kbps)
-    rate    record w/ sampling rate (in Hz)
-    count   record w/ channel count (1, 2, ...)
-    '''
+      file:    file to record to\n
+      limit:   record w/ limit (seconds, 0 = unlimited)\n
+      encoder: record w/ encoder (aac, amr_wb, amr_nb)\n
+      bitrate: record w/ bitrate (in kbps)\n
+      rate:    record w/ sampling rate (in Hz)\n
+      count:   record w/ channel count (1, 2, ...)
+    '''   
+
     params = {
       "encoder": "-e",
       "bitrate": "-b",

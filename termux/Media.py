@@ -32,12 +32,16 @@ def info():
     return execute(f"termux-media-player info")
 
 def scan(file_s, recursive :bool = False, verbose: bool = False):
-    '''Scan the specified file(s) and add to the media content provider. 
+    '''Scan the specified file(s) and add to the media content provider
 
-    file_s - Single file (str) or a tuple of files (tuple)
-    recursive - Recursive scan directories (default: False)
-    verbose - Get more information (default: False)
-    '''
+    Parameters
+    ----------
+    file_s : Single file (str) or a tuple of files (tuple)\n
+    recursive : Recursive scan directories, by default False\n
+    verbose : Verbose mode, by default False
+        
+    '''    
+
     if type(file_s) is tuple:
       f = "'" + "' '".join(file_s) + "'"
     elif type(file_s) is str:

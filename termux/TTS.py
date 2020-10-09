@@ -1,4 +1,4 @@
-'''Termux-API Text-to-Speech
+''' Termux-API Text-to-Speech
 
     tts_info   - Get tts-engines info (JSON)
     tts_speak  - Text to speech

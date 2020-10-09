@@ -3,9 +3,9 @@
 from . import scrip as t
 
 def __dir__():
-    return sorted(['_generic', 'battery', 'brightness', 'contactlist', 'downloadFile', 'call', 'torch', 'vibrate', 'volume'])
+    return ['generic', 'battery', 'brightness', 'contactlist', 'download', 'fingerprint', 'getfile', 'location', 'torch', 'vibrate', 'volume']
 
-def _generic(funcName: str):
+def generic(funcName: str):
     '''
     Any function can be called, which will be passed directly 
         to subprocess.Popen, and result returned. Call this if you
@@ -53,6 +53,12 @@ def contactlist():
     '''
     return t.compute("termux-contact-list")["output"]
 
+def fingerprint():
+    '''
+    Use fingerprint sensor on device to check for authentication.
+    '''
+    return t.compute("termux-fingerprint")["output"]
+
 
 def torch(switch: bool =True):
     '''
@@ -67,7 +73,7 @@ def torch(switch: bool =True):
     return t.compute(cmd)["output"]
 
 
-def downloadFile(url, description: str ="From termux",title: str ="Download"):
+def download(url, description: str ="From termux",title: str ="Download"):
     '''
     This is the method for downloading anything from the internet.
 
@@ -81,12 +87,6 @@ def downloadFile(url, description: str ="From termux",title: str ="Download"):
         title for the download request notification
     '''
     return t.compute(f"termux-download -t {title} {url}")["output"]
-
-def call(phone_number :str):
-    '''
-    Makes a phone call to number passed as an argument
-    '''
-    return t.compute(f"termux-telephony-call {phone_number}")["output"]
 
 def volume(**kwargs):
     '''
@@ -109,3 +109,23 @@ def volume(**kwargs):
         volume = kwargs['volume']
       cmd = f"termux-volume {stream} {volume}" 
     return t.compute(f"termux-volume")["output"]
+
+def location(provider: str = None, request: str = None):
+    '''
+    Location of device.
+
+    Parameters
+    ----------
+    provider  [gps/network/passive] (default: gps)
+    request   [once/last/updates] (default: once)
+        
+    '''
+    opt = f"-p {provider} " if provider is not None else ""
+    opt += f"-r {request}" if request is not None else ""
+    return t.compute(f"termux-location {opt}")["output"]
+
+def getfile(saveas: str):
+    '''
+    Request a file from the system and write it to the specified file. 
+    '''
+    return t.compute(f"termux-storage-get {saveas}")["output"]

@@ -1,4 +1,27 @@
-from . import API, Camera, Clipboard, Sensors, TTS, Wifi, Notification
+'''
+Termux API python wrapper
+
+Available modules are:
+  termux.API
+  termux.Camera
+  termux.Clipboard
+  termux.Media
+  termux.Microphone
+  termux.Notification
+  termux.Scheduler
+  termux.Sensors
+  termux.Share
+  termux.Telephony
+  termux.TTS
+  termux.UI
+  termux.Wifi
+
+For information about available methods, use
+  help(termux.<modulename>)
+'''
+
+from . import API, Camera, Clipboard, Sensors, TTS, Wifi, Notification, Media, Microphone, Scheduler, Share, Telephony, UI
 
 
-__all__ = sorted(["API", "Sensors","Camera","Clipboard","TTS","Wifi","Notification"])
+__all__ = sorted(["API", "Sensors", "Camera", "Clipboard", "TTS", "Wifi", "Notification",
+                  "Media", "Microphone", "Scheduler", "Share", "Telephony", "UI"])

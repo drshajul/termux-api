@@ -12,7 +12,7 @@ def remove(id: int):
     return t.compute(f"termux-notification-remove {id}")["output"]
 
 
-def notify(title: str, content: str, id: int = 1, args: list = [], kwargs: dict = {}):
+def notify(title: str, content: str, id: int = 1, args: tuple = (), kwargs: dict = {}):
     '''
     Create a notification  
 
@@ -22,7 +22,7 @@ def notify(title: str, content: str, id: int = 1, args: list = [], kwargs: dict 
     content: Content of notification
     id: (optional) The id for the notification, 
         required to remove notification
-    args: (optional) A list of arguments, eg ["ongoing", "sound"]
+    args: (optional) A tuple of arguments, eg ("ongoing", "sound")
     kwargs: (optional) A dict of args, eg {"led-color": "ff00ff"} 
     
     For more info visit 

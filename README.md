@@ -1,21 +1,20 @@
 # termux-api
 
-[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://github.com/shajul/termux.git)
+[![Build Status](http://img.shields.io/travis/badges/badgerbadgerbadger.svg?style=flat-square)](https://github.com/shajul/termux-api)
 
 termux-api is here, made with :heart:
 
 ## What is termux-api?
 termux-api is a python module to access the [termux-api](https://wiki.termux.com/wiki/Termux:API)
-To ease the access of these beautiful api's which 
-can be really useful for IOT projects deploying using your own android phone.
-This module is heavily inspired by https://github.com/azwyane/pimux
+This provides a way to get native access in Python to Android device functionality as API.
 
-## Why to use termux-api?
-For every pythonist and enthusiast termux-api can really ease hardware and software
-access through termux-api.
+Most of the [termux-api implementations](https://wiki.termux.com/wiki/Termux:API) are directly available.
+The API.generic() method gives direct access to any other method that has not yet been implemented.
 
 ## Special thanks
-This module is heavily inspired by https://github.com/azwyane/pimux 
+Thanks to termux and termux-api for making all this possible.
+This module is heavily inspired by https://github.com/azwyane/pimux, though the code has been 
+almost completely re-written and now is much more comprehensive.  
 This project is originally located at [termux-api](https://github.com/shajul/termux-api)
 
 ## Table of Contents
@@ -28,16 +27,24 @@ This project is originally located at [termux-api](https://github.com/shajul/ter
 
 - Termux app
 - Termux-api (both app and package)
-- Python
+- Python installed in termux ($ pkg install python)
 
 ## Installation
 
-🚀&nbsp; To install in your local machine follow the steps below:
+🚀&nbsp; Android install through termux:
 
 ### Method-1
 
+**Install by pip**
+The stable version is available in the Pypi, which you can download by:
+
+```
+$ python3 -m pip install termux-api
+```
+
+### Method-2
+
 You can always get the latest version of termux-api maintained here in the github.
-> To get the latest feature:
 - Clone this repo to your local machine(termux) using `https://github.com/shajul/termux-api.git`
 
 Goto to your terminal and type:
@@ -51,23 +58,14 @@ $ python3 -m pip install dist/termux_api*.whl
 Or you can add this to site packages by first building it first:
 ```
 $ python3 setup.py sdist bdist_wheel
-$ python3 -m pip install -e <path to termux-api main dir>
+$ python3 -m pip install -e <path to termux_api*.whl>
 ```
 
 Finally, you have it installed.
 
-### Method-2
-
-**Install by pip**
-The stable version is available in the Pypi, which you can download by:
-
-```
-$ python3 -m pip install termux-api
-```
-
 ## Run the project
 
-> Now to run the termux-api type in your terminal:
+Now to run the termux-api type in your terminal:
 
 ```bash
 $ python
@@ -77,7 +75,7 @@ $ python
 >>> help(termux.API) #for available methods
 ```
 Avaliable modules are
-API, Camera, Clipboard, Notification, Sensors, TTS, Wifi
+API, Camera, Clipboard, Media, Microphone, Notification, Scheduler, Sensors, Share, Telephony, TTS, UI, Wifi
 
 OR
 
@@ -89,14 +87,6 @@ $ python
 >>> help(API) # for details of available methods
 
 ```
-
-## Features
-
-It is a side project of making use of android sensors and IOT projects. 
-It has the feature of termux-api which can be easily used with
-python projects.
-
----
 
 ## Contributing
 

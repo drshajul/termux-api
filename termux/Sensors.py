@@ -1,80 +1,79 @@
+''' Termux-API sensors live data
+
+    Methods
+    ------------
+    sensors - Lists available sensors on the device
+    cleanup - Performs cleanup releasing sensor resources.
+    sensorsData - Output specific sensor(s) data. (limit = 1)
+    allSensorsData - Output all sensors data (limit = 1)
+    liveSaveLog - Live sensor data to stdout and to log file.    
+'''
+
 from . import scrip as t
 
-class sensor:
+def sensors():
     '''
-    This is a class that lets to view
-    sensor data directly from your android device.
+    Lists available sensors on the device.
     '''
-    def __init__(self):
-        pass
+    return t.compute("termux-sensor -l")["output"]
 
-    def listSensor(self):
-        '''
-        lists available sensors on the device.
-        '''
-        self.value=t.compute("termux-sensor -l")
-        return self.value["output"]
+def cleanup():
+    '''
+    Performs cleanup releasing sensor resources.
+    '''
+    return t.compute("termux-sensor -c")["output"]
 
-    def cleanup(self):
-        '''
-        Performs cleanup releasing sensor resources.
-        '''
-        self.clean=t.compute("termux-sensor -c")
-        return self.clean["output"]
-
-    def delay(self,*args,delayvalue=3000):
-        '''
-        Method to delay time in milliseconds
-        on receiving every new sensor update.
-        Arguments:
-        sensorname: takes strings of sensor name
-        delayvalue=3000(default)(delayed by 3 sec)
-
-        Example:
-        .delay("Gravity","RMD") gives 3 sec delay output
-        but,
-        .delay("Gravity",5000) causes error for giving the delay
-        give like this:
-        .delay("Gravity",delayvalue=5000)
-        '''
-        sensorname=tuple(args)
-        if not sensorname:
-            return "Give at least one sensor name. For finding sensor name call listSensor method"
-        else:
-            self.delayvalue=delayvalue
-            sensor_names=""
-            for sensor_name in sensorname:
-                sensor_names=sensor_names+sensor_name+","
-        
-            sensor_names.replace("\'","")              
-            self.delayv=t.liveSave(f"termux-sensor -s {sensor_names} -d {self.delayvalue}")
-    
-        
-
-    def specificSensors(self,*args):
-        '''
-        This is a method to print specific 
-        sensor(s) data.
-        Argument is either a single sensor
-        or multiple sensors.
-        '''
-        sname=tuple(args)
-        if not sname:
-            return "Give at least one sensor name. For finding sensor name call listSensor method"
-        else:
-            sensornames=""
-            for sensorname in sname:
-                sensornames=sensornames+sensorname+","      
-            
-            sensornames.replace("\'","")
-            self.delayval=t.liveSave(f"termux-sensor -s {sensornames}")
+def sensorsData(*args):
+    '''
+    Output specific sensor(s) data. (JSON)
+    You can pass multiple sensor names as arguments.
+    As live data is not useful when calling from 
+    python, only one reading is retrieved by this method.
+    If you need continous data, you can create a 
+    loop in python
+    '''
+    sname=tuple(args)
+    if not sname:
+        return "At least one sensor name required. \nFor finding sensor name call sensors() method"
+    else:
+        sensornames=""
+        for v in sname:
+            sensornames += v + ","      
+        return t.compute(f"termux-sensor -n 1 -s {sensornames[0:-1]}")["output"]
 
 
-    def allsensors(self):
-        '''
-        Method to print sensor data all at once.
-        WARNING: Can cause over load to the device.
-        '''
-        self.show=t.liveSave("termux-sensor -a")
+def allSensorsData():
+    '''
+    Method to print sensor data all at once.
+    As live data is not useful when calling from 
+    python, only one reading is retrieved by this method.
+    If you need continous data, you can create a 
+    loop in python
+    '''
+    return t.compute("termux-sensor -n 1 -a")["output"]
 
 
+def liveSaveLog(sensors, logfile = 'sensors.log', delay = 1000, limit = 60):
+    '''
+    Live sensor data to stdout and to log file.
+
+    Parameters
+    ----------
+    sensors = tuple of sensors to query data for (or string sensor)
+    logfile = file to log to (default is 'sensors.log')
+    delay = delay between querying sensor (default 1000 ms)
+    limit = number of time to query (default 60, 0 for no limit)
+
+    Example:
+    > > > sensors = 'gravity', 'Orientation'
+    > > > liveSaveLog( sensors , limit = 10 )
+    '''
+    if type(sensors) is tuple:
+        sensornames=""
+        for v in sensors:
+            sensornames += v + ","      
+        t.liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensornames[0:-1]}", logfile)
+    elif type(sensors) is str:
+        t.liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensors}", logfile)
+    else:
+        return 'Invalid sensors argument'

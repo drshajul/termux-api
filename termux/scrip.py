@@ -2,14 +2,14 @@ import subprocess
 from sys import stdout
 
 
-def liveSave(func):
+def liveSave(func, logfile = 'sensors.log'):
     '''
     liveSave is the function taking a function as an argument
     which need to compute sensor data displaying live
     data to the screen and saving the computed data
     to sensor.log file when on interrupt.
     '''
-    with open('sensor.log', 'wb') as f:
+    with open(logfile, 'wb') as f:
         process = subprocess.Popen(func, stdout=subprocess.PIPE,shell=True)
         for c in iter(lambda: process.stdout.read(1), b''):
             a=c.decode("utf-8") #to write to stdout needs to be decoded

@@ -4,14 +4,14 @@
     takephoto - Take photo with specified camera
 '''
 
-from . import scrip as t
+from .android import execute
 from datetime import datetime
 
 def info():
     '''
     Returns camera info in JSON format
     '''
-    return t.compute("termux-camera-info")["output"]
+    return execute("termux-camera-info")
 
 def takephoto(cid=0, saveas=None):
     '''
@@ -24,4 +24,4 @@ def takephoto(cid=0, saveas=None):
     '''
     if saveas == None:
         saveas = datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
-    return t.compute(f"termux-camera-photo -c {cid} {saveas}")["output"]
+    return execute(f"termux-camera-photo -c {cid} {saveas}")

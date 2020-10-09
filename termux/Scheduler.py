@@ -5,7 +5,7 @@
     listAll   - list pending jobs
     schedule  - schedule new job
 '''
-from . import scrip as t
+from .android import execute
 
 def _makeopt(str): 
     res = [str[0].lower()] 
@@ -21,19 +21,19 @@ def cancel(id: int):
     '''
     Cancel job with the given id
     '''
-    return t.compute(f"termux-job-scheduler --cancel {id}")["output"]
+    return execute(f"termux-job-scheduler --cancel {id}")
 
 def cancelAll():
     '''
     Cancel all jobs
     '''
-    return t.compute("termux-job-scheduler --cancel-all")["output"]
+    return execute("termux-job-scheduler --cancel-all")
 
 def listAll():
     '''
     List pending jobs
     '''
-    return t.compute("termux-job-scheduler -p")["output"]
+    return execute("termux-job-scheduler -p")
 
 def schedule(script: str, id: int, **kwargs):
     '''
@@ -69,5 +69,5 @@ def schedule(script: str, id: int, **kwargs):
             else:
                 kargs += f"--{_makeopt(k)} " + f'"{v}" '
 
-    return f'termux-job-scheduler -s "{script}" --job-id {str(id)} {kargs}'
+    return execute(f'termux-job-scheduler -s "{script}" --job-id {str(id)} {kargs}')
 

@@ -4,13 +4,13 @@
     setclipboard - set clipboard text
 '''
 
-from . import scrip as t
+from .android import execute
 
 def getclipboard():
    '''
    Returns value stored in the clipboard.
    '''
-   return t.compute("termux-clipboard-get")["output"]
+   return execute("termux-clipboard-get")
 
 def setclipboard(newClip: str =" "):
     '''
@@ -20,4 +20,4 @@ def setclipboard(newClip: str =" "):
     ----------
     newClip: (optional) - new clipboard text (default is empty string)
     '''
-    return t.compute(f"termux-clipboard-set {newClip}")["output"]
+    return execute(f"termux-clipboard-set {newClip}")

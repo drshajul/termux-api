@@ -3,13 +3,13 @@
     notify - Create the notification
     remove - Remove notificaiton with the given id
 '''
-from . import scrip as t
+from .android import execute
 
 def remove(id: int):
     '''
     Remove notificaiton with the given id
     '''
-    return t.compute(f"termux-notification-remove {id}")["output"]
+    return execute(f"termux-notification-remove {id}")
 
 
 def notify(title: str, content: str, id: int = 1, args: tuple = (), kwargs: dict = {}):
@@ -39,4 +39,4 @@ def notify(title: str, content: str, id: int = 1, args: tuple = (), kwargs: dict
 
     opts = cargs + kargs
 
-    return t.compute(f'termux-notification -t "{title}" -c "{content}" -i "{str(id)}" {opts}')["output"]
+    return execute(f'termux-notification -t "{title}" -c "{content}" -i "{str(id)}" {opts}')

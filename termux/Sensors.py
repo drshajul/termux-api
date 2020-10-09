@@ -9,19 +9,19 @@
     liveSaveLog - Live sensor data to stdout and to log file.    
 '''
 
-from . import scrip as t
+from .android import execute,liveSave
 
 def sensors():
     '''
     Lists available sensors on the device.
     '''
-    return t.compute("termux-sensor -l")["output"]
+    return execute("termux-sensor -l")
 
 def cleanup():
     '''
     Performs cleanup releasing sensor resources.
     '''
-    return t.compute("termux-sensor -c")["output"]
+    return execute("termux-sensor -c")
 
 def sensorsData(*args):
     '''
@@ -39,7 +39,7 @@ def sensorsData(*args):
         sensornames=""
         for v in sname:
             sensornames += v + ","      
-        return t.compute(f"termux-sensor -n 1 -s {sensornames[0:-1]}")["output"]
+        return execute(f"termux-sensor -n 1 -s {sensornames[0:-1]}")
 
 
 def allSensorsData():
@@ -50,7 +50,7 @@ def allSensorsData():
     If you need continous data, you can create a 
     loop in python
     '''
-    return t.compute("termux-sensor -n 1 -a")["output"]
+    return execute("termux-sensor -n 1 -a")
 
 
 def liveSaveLog(sensors, logfile = 'sensors.log', delay = 1000, limit = 60):
@@ -72,8 +72,8 @@ def liveSaveLog(sensors, logfile = 'sensors.log', delay = 1000, limit = 60):
         sensornames=""
         for v in sensors:
             sensornames += v + ","      
-        t.liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensornames[0:-1]}", logfile)
+        liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensornames[0:-1]}", logfile)
     elif type(sensors) is str:
-        t.liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensors}", logfile)
+        liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensors}", logfile)
     else:
         return 'Invalid sensors argument'

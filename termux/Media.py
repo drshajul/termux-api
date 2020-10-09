@@ -6,7 +6,7 @@ info - playback information
 scan - scan file(s) & add to media content provider
 
 '''
-from . import scrip as t
+from .android import execute
 
 def play(file):
     '''Play specified file
@@ -15,7 +15,7 @@ def play(file):
     ----------
     file    file to play
     '''
-    return t.compute(f'termux-media-player play "{file}"')["output"]
+    return execute(f'termux-media-player play "{file}"')
 
 def control(dothis):
     '''Control playback
@@ -24,12 +24,12 @@ def control(dothis):
     ----------
     dothis  =  play / pause / stop (str)
     '''
-    return t.compute(f"termux-media-player {dothis}")["output"]
+    return execute(f"termux-media-player {dothis}")
 
 def info():
     '''Playback information
     '''
-    return t.compute(f"termux-media-player info")["output"]
+    return execute(f"termux-media-player info")
 
 def scan(file_s, recursive :bool = False, verbose: bool = False):
     '''Scan the specified file(s) and add to the media content provider. 
@@ -49,5 +49,5 @@ def scan(file_s, recursive :bool = False, verbose: bool = False):
       opt += "-r "
     if verbose:
       opt += "-v"
-    return t.compute(f"termux-media-scan {opt} {f}")["output"]
+    return execute(f"termux-media-scan {opt} {f}")
     

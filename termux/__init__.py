@@ -2,18 +2,18 @@
 Termux API python wrapper
 
 Available modules are:
-  termux.API
+  termux.API - Misc API methods, including generic call
   termux.Camera
   termux.Clipboard
-  termux.Media
+  termux.Media - Playback and media scanner
   termux.Microphone
   termux.Notification
-  termux.Scheduler
+  termux.Scheduler - Job Scheduler
   termux.Sensors
   termux.Share
-  termux.Telephony
-  termux.TTS
-  termux.UI
+  termux.Telephony - make call, info of device and network
+  termux.TTS - Text to speech
+  termux.UI - Dialog Widgets and Toast
   termux.Wifi
 
 For information about available methods, use

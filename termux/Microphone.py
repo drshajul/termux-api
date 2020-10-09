@@ -6,7 +6,7 @@ Avaliable methods are:
     stop   - stop recording
 '''
 
-from . import scrip as t
+from .android import execute
 
 def __dir__():
     return ['record', 'info', 'stop']
@@ -36,16 +36,16 @@ def record(file: str, limit: int = 0, **kwargs):
     else: 
       for k,v in kwargs.items():
         opt += f"{params[k]} {v} "
-    return t.compute(f"termux-microphone-record -f {file} -l {limit} {opt}")["output"]
+    return execute(f"termux-microphone-record -f {file} -l {limit} {opt}")
 
 def info():
     '''
     Get recording information
     '''
-    return t.compute("termux-microphone-record -i")["output"]
+    return execute("termux-microphone-record -i")
 
 def stop():
     '''
     Quits recording 
     '''
-    return t.compute("termux-microphone-record -q")["output"]
+    return execute("termux-microphone-record -q")

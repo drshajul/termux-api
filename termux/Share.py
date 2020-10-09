@@ -3,7 +3,7 @@
     text - Share specified text
     file - Share specified file
 '''
-from . import scrip as t
+from .android import execute
 
 def text(text: str, action = "send", defaultReciever = False):
   '''
@@ -18,7 +18,7 @@ def text(text: str, action = "send", defaultReciever = False):
   if defaultReciever:
     opt += " -d"
   
-  return t.compute(f'echo "{text}" | termux-share {opt}')["output"]
+  return execute(f'echo "{text}" | termux-share {opt}')
 
 def file(filepath: str, action = "send", defaultReciever = False, contentType = None, title = None):
   '''
@@ -39,4 +39,4 @@ def file(filepath: str, action = "send", defaultReciever = False, contentType = 
   if title is not None:
     opt += " -t {title}"
   
-  return t.compute(f'termux-share {opt} "{filepath}"')["output"]
+  return execute(f'termux-share {opt} "{filepath}"')

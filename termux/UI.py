@@ -12,7 +12,7 @@
     text - Input text
     toast - Show text as toast (transient popup) 
 '''
-from . import scrip as t
+from .android import execute
 
 def __radiolike(func,opts,title):
   v = "-v "
@@ -21,7 +21,7 @@ def __radiolike(func,opts,title):
   v = v[0:-1]
   if title is not None:
     v += f' -t "{title}"'
-  return t.compute(f"termux-dialog {func} {v}")["output"]
+  return execute(f"termux-dialog {func} {v}")
 
 def __hintlike(func,hint,title):
   opts = ""
@@ -29,7 +29,7 @@ def __hintlike(func,hint,title):
     opts += f'-i "{hint}" '
   if title is not None:
     opts += f'-t "{title}"'
-  return t.compute(f"termux-dialog {func} {opts}")["output"]
+  return execute(f"termux-dialog {func} {opts}")
    
 
 
@@ -62,7 +62,7 @@ def counter(rangeTuple :tuple = None, title :str = None):
   r = r[0:-1]
   if title is not None:
     r += f' -t "{title}"'
-  return t.compute(f"termux-dialog counter {r}")["output"]
+  return execute(f"termux-dialog counter {r}")
 
 def date(format :str = None, title :str = None):
   '''Pick a date
@@ -75,7 +75,7 @@ def date(format :str = None, title :str = None):
     opts += f'-d "{format}" '
   if title is not None:
     opts += f'-t "{title}"'
-  return t.compute(f"termux-dialog date {opts}")["output"]
+  return execute(f"termux-dialog date {opts}")
 
 def time(title: str = None):
   '''Pick a time value
@@ -141,7 +141,7 @@ def text(hint :str = None, multiline: bool = None, number: bool = None, password
     opts += f'-i "{hint}" '
   if title is not None:
     opts += f'-t "{title}"'
-  return t.compute(f"termux-dialog text {opts}")["output"]
+  return execute(f"termux-dialog text {opts}")
 
 def toast(text: str, bgcolor :str = None, color: str = None, position: str = None, short: bool = False):
   '''Show a toast message
@@ -166,4 +166,4 @@ def toast(text: str, bgcolor :str = None, color: str = None, position: str = Non
   if short is not None:
       options += "-s"
 
-  return t.compute(f'termux-toast {options} "{text}"')['output']
+  return execute(f'termux-toast {options} "{text}"')['output']

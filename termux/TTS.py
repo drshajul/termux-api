@@ -3,13 +3,13 @@
     tts_info   - Get tts-engines info (JSON)
     tts_speak  - Text to speech
 '''
-from . import scrip as t
+from .android import execute
 
 def tts_info():
     '''
     Get tts-engines info (JSON format).
     '''
-    return t.compute("termux-tts-engines")["output"]
+    return execute("termux-tts-engines")
 
 
 def tts_speak(text, **kwargs):
@@ -42,4 +42,4 @@ def tts_speak(text, **kwargs):
     for k,v in kwargs.items():
         opts += f'-{params[k]} "{v}" '
     
-    return t.compute(f"termux-tts-speak {opts} {text}")["output"]
+    return execute(f"termux-tts-speak {opts} {text}")

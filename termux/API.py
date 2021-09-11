@@ -7,7 +7,7 @@ def __dir__():
 
 def generic(funcName: str):
     '''
-    Any function can be called, which will be passed directly 
+    Any function can be called, which will be passed directly
         to subprocess.Popen, and result returned. Call this if you
         know what you are doing.
     eg. termux._generic('termux-toast -g middle -s "Hello"')
@@ -19,7 +19,7 @@ def battery():
     '''
     Returns battery status info.
     '''
-    return execute("termux-battery-status")  
+    return execute("termux-battery-status")
 
 def brightness(Brightness: int =100):
     '''
@@ -39,9 +39,9 @@ def vibrate(duration: int =1000, force: bool = False):
     Parameters
     ----------
     duration : int, optional
-    force: bool 
+    force: bool
         Force vibrate even in silent mode, default = False
-        
+
     '''
     extra = "-f" if (force) else ""
     return execute(f"termux-vibrate -d {duration} {extra}")
@@ -63,10 +63,10 @@ def fingerprint():
 def torch(switch: bool =True):
     '''
     Toggles the torch on/off
-    
+
     Parameter
     ----------
-    switch: bool 
+    switch: bool
         True for on, False for off (Default is True)
     '''
     cmd = "termux-torch on" if (switch) else "termux-torch off"
@@ -99,16 +99,16 @@ def volume(**kwargs):
       Valid audio streams are: alarm, music, notification, ring, system, call.
     volume: str (optional)
     '''
-    if(len(kwargs) == 0): 
-      cmd = "termux-volume" 
+    if(len(kwargs) == 0):
+      cmd = "termux-volume"
     else:
       stream = "ring"; volume = "5"
       if 'stream' in kwargs:
         stream = kwargs['stream']
       if 'volume' in kwargs:
         volume = kwargs['volume']
-      cmd = f"termux-volume {stream} {volume}" 
-    return execute(f"termux-volume")
+      cmd = f"termux-volume {stream} {volume}"
+    return execute(cmd)
 
 def location(provider: str = None, request: str = None):
     '''
@@ -118,7 +118,7 @@ def location(provider: str = None, request: str = None):
     ----------
     provider  [gps/network/passive] (default: gps)
     request   [once/last/updates] (default: once)
-        
+
     '''
     opt = f"-p {provider} " if provider is not None else ""
     opt += f"-r {request}" if request is not None else ""
@@ -126,6 +126,6 @@ def location(provider: str = None, request: str = None):
 
 def getfile(saveas: str):
     '''
-    Request a file from the system and write it to the specified file. 
+    Request a file from the system and write it to the specified file.
     '''
     return execute(f"termux-storage-get {saveas}")

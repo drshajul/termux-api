@@ -166,4 +166,5 @@ def toast(text: str, bgcolor :str = None, color: str = None, position: str = Non
   if short is not None:
       options += "-s"
 
-  return execute(f'termux-toast {options} "{text}"')['output']
+  r = execute(f'termux-toast {options} "{text}"')
+  return r[1]

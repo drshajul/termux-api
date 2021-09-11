@@ -1,6 +1,5 @@
-import subprocess
+import subprocess, json
 from sys import stdout
-
 
 def liveSave(func, logfile = 'sensors.log'):
     """Display live data to the screen and 
@@ -22,12 +21,17 @@ def execute(func):
         output = string, JSON string or None
         err = error message or None
     '''    
+    fSplit = func.split() #secure call
     p = subprocess.Popen(
-            func,
+            fSplit,
             stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            shell=True,
+            shell=False,
             text=True)
     output,err = p.communicate()
+    try:
+        output = json.loads(output)
+    except json.JSONDecodeError:
+        pass
     return p.returncode, output, err

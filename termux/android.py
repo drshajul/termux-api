@@ -1,5 +1,6 @@
 import subprocess, json
 from sys import stdout
+import shlex
 
 def liveSave(func, logfile = 'sensors.log'):
     """Display live data to the screen and
@@ -21,7 +22,7 @@ def execute(func):
         output = string, JSON string or None
         err = error message or None
     '''
-    fSplit = func.split() #secure call
+    fSplit = shlex.split(func) #secure call
     p = subprocess.Popen(
             fSplit,
             stdin=subprocess.DEVNULL,

@@ -18,8 +18,6 @@ def off():
     Disable WiFi
     '''
     return execute("termux-wifi-enable false")
-    
-
 
 def info():
     '''

@@ -5,27 +5,27 @@
 '''
 from .android import execute
 
-def remove(id: int):
+def remove(nid: int):
     '''
     Remove notificaiton with the given id
     '''
-    return execute(f"termux-notification-remove {id}")
+    return execute(f"termux-notification-remove {nid}")
 
 
-def notify(title: str, content: str, id: int = 1, args: tuple = (), kwargs: dict = {}):
+def notify(title: str, content: str, nid: int = 1, args: tuple = (), kwargs: dict = {}):
     '''
-    Create a notification  
+    Create a notification
 
     Parameters
     ----------
     title: Title of notification
     content: Content of notification
-    id: (optional) The id for the notification, 
+    nid: (optional) The id for the notification,
         required to remove notification
     args: (optional) A tuple of arguments, eg ("ongoing", "sound")
-    kwargs: (optional) A dict of args, eg {"led-color": "ff00ff"} 
+    kwargs: (optional) A dict of args, eg {"led-color": "ff00ff"}
     
-    For more info visit 
+    For more info visit
         [termux wiki](https://wiki.termux.com/wiki/Termux-notification)
     '''
     cargs = kargs = ""
@@ -39,4 +39,4 @@ def notify(title: str, content: str, id: int = 1, args: tuple = (), kwargs: dict
 
     opts = cargs + kargs
 
-    return execute(f'termux-notification -t "{title}" -c "{content}" -i "{str(id)}" {opts}')
+    return execute(f'termux-notification -t "{title}" -c "{content}" -i "{str(nid)}" {opts}')

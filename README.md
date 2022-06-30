@@ -14,7 +14,7 @@ The API.generic() method gives direct access to any other method that has not ye
 ## Special thanks
 Thanks to termux and termux-api for making all this possible.
 This module is heavily inspired by https://github.com/azwyane/pimux, though the code has been 
-almost completely re-written and now is much more comprehensive.  
+almost completely re-written and now is much more comprehensive. Also, special thanks for recent contribution from [Young-Lord](https://github.com/Young-Lord)
 This project is originally located at [termux-api](https://github.com/shajul/termux-api)
 
 ## Table of Contents

@@ -1,20 +1,19 @@
 import subprocess, json
 from sys import stdout
-import shlex
 
 def liveSave(func: str, logfile: str = 'sensors.log'):
     """Display live data to the screen and
        saving the computed data to sensor.log file.
     """
     with open(logfile, 'wb') as f:
-        p = subprocess.Popen(func, stdout=subprocess.PIPE,shell=True)
+        p = subprocess.Popen(func, stdout=subprocess.PIPE)
         for c in iter(lambda: p.stdout.read(1), b''):
-            a=c.decode("utf-8") #to write to stdout needs to be decoded
+            a = c.decode("utf-8") #to write to stdout needs to be decoded
             stdout.write(a)
             f.write(c)    #needs to write in byte like format
 
 
-def execute(func: str, stdin: str = ""):
+def execute(func: list, stdin: str = ""):
     '''Interface to shell
 
     Returns:
@@ -22,9 +21,9 @@ def execute(func: str, stdin: str = ""):
         output = string, JSON string or None
         err = error message or None
     '''
-    fSplit = shlex.split(func) # secure call
+    func = [str(i) if type(i) in (int, float) else i for i in func]
     p = subprocess.Popen(
-            fSplit,
+            func,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,

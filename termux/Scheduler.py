@@ -7,7 +7,10 @@
 '''
 from .android import execute
 
-def _makeopt(str): 
+def _makeopt(str):
+    '''
+    Convert var like "batteryNotLow" to argument like "battery-not-low".
+    '''
     res = [str[0].lower()] 
     for c in str[1:]: 
         if c in ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'): 
@@ -17,32 +20,32 @@ def _makeopt(str):
             res.append(c) 
     return ''.join(res) 
 
-def cancel(id: int):
+def cancel(jid: int):
     '''
     Cancel job with the given id
     '''
-    return execute(f"termux-job-scheduler --cancel {id}")
+    return execute(["termux-job-scheduler", "--cancel", jid])
 
 def cancelAll():
     '''
     Cancel all jobs
     '''
-    return execute("termux-job-scheduler --cancel-all")
+    return execute(["termux-job-scheduler", "--cancel-all"])
 
 def listAll():
     '''
     List pending jobs
     '''
-    return execute("termux-job-scheduler -p")
+    return execute(["termux-job-scheduler", "-p"])
 
-def schedule(script: str, id: int, **kwargs):
+def schedule(script: str, jid: int, **kwargs):
     '''
     Schedule a script to run at specified intervals. 
 
     Parameters
     ----------
     script :str         path of script to be called
-    id :int             overwrites previous job if same id
+    jid :int            overwrites previous job if same id
     periodMs :int       milliseconds (default 0 means once).
                           Since Android N, the minimum period
                           is 900,000ms (15 minutes).
@@ -58,16 +61,15 @@ def schedule(script: str, id: int, **kwargs):
     triggerContentUri  :str  (>= Android N)
     triggerContentFlag :int  default 1, (>= Android N)
     '''
-    kargs = ""
+    kargs = []
     
     if len(kwargs) > 0:
         for k,v in kwargs.items():
+            kargs.append("--" + _makeopt(k))
             if type(v) is bool:
-                kargs += f"--{_makeopt(k)} " + f'{str(v).lower()} '
-            elif type(v) is int:
-                kargs += f"--{_makeopt(k)} " + f'{v} '
+                kargs.append(str(v).lower())
             else:
-                kargs += f"--{_makeopt(k)} " + f'"{v}" '
+                kargs.append(v)
 
-    return execute(f'termux-job-scheduler -s "{script}" --job-id {str(id)} {kargs}')
+    return execute(["termux-job-scheduler", "-s", script, "--job-id", jid] + kargs)
 

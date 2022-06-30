@@ -9,7 +9,7 @@ def tts_info():
     '''
     Get tts-engines info (JSON format).
     '''
-    return execute("termux-tts-engines")
+    return execute(["termux-tts-engines"])
 
 
 def tts_speak(text, **kwargs):
@@ -30,7 +30,8 @@ def tts_speak(text, **kwargs):
 
     TODO: Implement os.mkfifo() and os.pipe() 
     '''
-    opts = ""; params = {
+    opts = []
+    params = {
         "engine" : "e",
         "language" : "l",
         "region" : "n",
@@ -40,6 +41,6 @@ def tts_speak(text, **kwargs):
         "stream" : "s"}
     
     for k,v in kwargs.items():
-        opts += f'-{params[k]} "{v}" '
+        opts += ['-'+params[k], v]
     
-    return execute(f"termux-tts-speak {opts} {text}")
+    return execute(["termux-tts-speak"] + opts +[text])

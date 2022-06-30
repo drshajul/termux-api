@@ -11,22 +11,22 @@ def on():
     '''
     Enable WiFi
     '''
-    return execute("termux-wifi-enable true")
+    return execute(["termux-wifi-enable", "true"])
 
 def off():
     '''
     Disable WiFi
     '''
-    return execute("termux-wifi-enable false")
+    return execute(["termux-wifi-enable", "false"])
 
 def info():
     '''
     Return wifi connection info (json format)
     '''
-    return execute(f"termux-wifi-connectioninfo")
+    return execute(["termux-wifi-connectioninfo"])
 
 def scaninfo():
     '''
     Return last wifi scan info (json format)
     '''
-    return execute(f"termux-wifi-scaninfo")
+    return execute(["termux-wifi-scaninfo"])

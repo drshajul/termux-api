@@ -14,29 +14,29 @@ def text(text: str, action = "send", defaultReciever = False):
   action = edit/send/view (default: send)
   defaultReciever  = default receiver instead of showing a chooser
   '''
-  opt = f"-a {action}"
+  opt = ["-a", action]
   if defaultReciever:
-    opt += " -d"
-  
-  return execute(f'echo "{text}" | termux-share {opt}')
+    opt.append("-d")
+  return execute(["termux-share"] + opt, stdin=text)
 
 def file(filepath: str, action = "send", defaultReciever = False, contentType = None, title = None):
   '''
-  Share text
+  Share file
 
   Parameters
   ----------
+  filepath = file to share
   action = edit/send/view (default: send)
-  defaultReciever  = default receiver instead of showing a chooser
+  defaultReciever = default receiver instead of showing a chooser
   contentType = eg, "text/plain" (default: guessed from file extension)
   title = title to share (default: None)
   '''
-  opt = f"-a {action}"
+  opt = ["-a", action]
   if defaultReciever:
-    opt += " -d"
+    opt.append("-d")
   if contentType is not None:
-    opt += " -c {contentType}"
+    opt += ["-c", contentType]
   if title is not None:
-    opt += " -t {title}"
+    opt += ["-t", title]
   
-  return execute(f'termux-share {opt} "{filepath}"')
+  return execute(["termux-share"] + opt + [filepath])

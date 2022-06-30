@@ -44,7 +44,7 @@ def vibrate(duration: int = 1000, force: bool = False):
 
     '''
     extra = "-f" if (force) else ""
-    return execute(["termux-vibrate-d", duration, extra])
+    return execute(["termux-vibrate", "-d", duration, extra])
 
 
 def contactlist():

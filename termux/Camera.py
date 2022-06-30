@@ -11,7 +11,7 @@ def info():
     '''
     Returns camera info in JSON format
     '''
-    return execute("termux-camera-info")
+    return execute(["termux-camera-info"])
 
 def takephoto(cid=0, saveas=None):
     '''
@@ -22,6 +22,6 @@ def takephoto(cid=0, saveas=None):
     cid: camera id (int), default is 0
     saveas: output file name (str), default is <timestamp>.jpg
     '''
-    if saveas == None:
+    if saveas is None:
         saveas = datetime.now().strftime("%Y%m%d_%H%M%S") + '.jpg'
-    return execute(f"termux-camera-photo -c {cid} {saveas}")
+    return execute(["termux-camera-photo", "-c", cid, saveas])

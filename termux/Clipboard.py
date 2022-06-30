@@ -10,7 +10,7 @@ def getclipboard():
    '''
    Returns value stored in the clipboard.
    '''
-   return execute("termux-clipboard-get")
+   return execute(["termux-clipboard-get"])
 
 def setclipboard(newClip: str = " "):
     '''
@@ -20,4 +20,4 @@ def setclipboard(newClip: str = " "):
     ----------
     newClip: (optional) - new clipboard text (default is empty string)
     '''
-    return execute("termux-clipboard-set", stdin=newClip)
+    return execute(["termux-clipboard-set"], stdin=newClip)

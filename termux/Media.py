@@ -15,43 +15,39 @@ def play(file):
     ----------
     file    file to play
     '''
-    return execute(f'termux-media-player play "{file}"')
+    return execute(["termux-media-player", "play", file])
 
-def control(dothis):
+def control(opt):
     '''Control playback
 
     Parameters
     ----------
-    dothis  =  play / pause / stop (str)
+    opt  =  play / pause / stop (str)
     '''
-    return execute(f"termux-media-player {dothis}")
+    return execute(["termux-media-player", opt])
 
 def info():
     '''Playback information
     '''
-    return execute(f"termux-media-player info")
+    return execute(["termux-media-player", "info"])
 
 def scan(file_s, recursive :bool = False, verbose: bool = False):
     '''Scan the specified file(s) and add to the media content provider
 
     Parameters
     ----------
-    file_s : Single file (str) or a tuple of files (tuple)\n
+    file_s : Single file (str) or a tuple of files (tuple|list)\n
     recursive : Recursive scan directories, by default False\n
     verbose : Verbose mode, by default False
         
     '''    
-
-    if type(file_s) is tuple:
-      f = "'" + "' '".join(file_s) + "'"
-    elif type(file_s) is str:
-      f = "'" + file_s + "'"
-    else:
-      return "file_s type invalid"
-    opt = ""
+    if isinstance(file_s, str):
+        file_s = [file_s]
+    file_s = list(file_s)
+    opt = []
     if recursive:
-      opt += "-r "
+      opt += ["-r"]
     if verbose:
-      opt += "-v"
-    return execute(f"termux-media-scan {opt} {f}")
+      opt += ["-v"]
+    return execute(["termux-media-scan"] + opt + file_s)
     

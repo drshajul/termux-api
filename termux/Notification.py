@@ -9,7 +9,7 @@ def remove(nid: int):
     '''
     Remove notificaiton with the given id
     '''
-    return execute(f"termux-notification-remove {nid}")
+    return execute(["termux-notification-remove", nid])
 
 
 def notify(title: str, content: str, nid: int = 1, args: tuple = (), kwargs: dict = {}):
@@ -28,15 +28,15 @@ def notify(title: str, content: str, nid: int = 1, args: tuple = (), kwargs: dic
     For more info visit
         [termux wiki](https://wiki.termux.com/wiki/Termux-notification)
     '''
-    cargs = kargs = ""
+    cargs = kargs = []
     if len(args) > 0:
         for v in args:
-            cargs += f"-{v} " if (len(v) == 1) else f"--{v} "
+            cargs.append(f"-{v}" if (len(v) == 1) else f"--{v}")
     
     if len(kwargs) > 0:
         for k,v in kwargs.items():
-            kargs += (f"-{k} " if (len(k) == 1) else f"--{k} ") + f'"{v}" '
+            kargs += [(f"-{k}" if (len(k) == 1) else f"--{k}"), str(v)]
 
     opts = cargs + kargs
 
-    return execute(f'termux-notification -t "{title}" -c "{content}" -i "{str(nid)}" {opts}')
+    return execute(["termux-notification", "-t", title, "-c", content, "-i", nid] + opts)

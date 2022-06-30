@@ -31,22 +31,23 @@ def record(file: str, limit: int = 0, **kwargs):
       "bitrate": "-b",
       "rate": "-r",
       "count": "-c"   
-    }; opt = ""
+    }
+    opt = []
     if len(kwargs) == 0:
-      opt = "-d"
+      opt += ["-d"]
     else: 
       for k,v in kwargs.items():
-        opt += f"{params[k]} {v} "
-    return execute(f"termux-microphone-record -f {file} -l {limit} {opt}")
+        opt += [params[k], v]
+    return execute(["termux-microphone-record", "-f", file, "-l", limit] + opt)
 
 def info():
     '''
     Get recording information
     '''
-    return execute("termux-microphone-record -i")
+    return execute(["termux-microphone-record", "-i"])
 
 def stop():
     '''
     Quits recording 
     '''
-    return execute("termux-microphone-record -q")
+    return execute(["termux-microphone-record", "-q"])

@@ -9,19 +9,19 @@
     liveSaveLog - Live sensor data to stdout and to log file.    
 '''
 
-from .android import execute,liveSave
+from .android import execute, liveSave
 
 def sensors():
     '''
     Lists available sensors on the device.
     '''
-    return execute("termux-sensor -l")
+    return execute(["termux-sensor", "-l"])
 
 def cleanup():
     '''
     Performs cleanup releasing sensor resources.
     '''
-    return execute("termux-sensor -c")
+    return execute(["termux-sensor", "-c"])
 
 def sensorsData(*args):
     '''
@@ -32,14 +32,12 @@ def sensorsData(*args):
     If you need continous data, you can create a 
     loop in python
     '''
-    sname=tuple(args)
+    sname = tuple(args)
     if not sname:
-        return "At least one sensor name required. \nFor finding sensor name call sensors() method"
+        raise ValueError("At least one sensor name required.\nFor finding sensor name call sensors() method.")
     else:
-        sensornames=""
-        for v in sname:
-            sensornames += v + ","      
-        return execute(f"termux-sensor -n 1 -s {sensornames[0:-1]}")
+        sensorNames = ','.join(sname)
+        return execute(["termux-sensor", "-n", "1", "-s", sensorNames])
 
 
 def allSensorsData():
@@ -50,7 +48,7 @@ def allSensorsData():
     If you need continous data, you can create a 
     loop in python
     '''
-    return execute("termux-sensor -n 1 -a")
+    return execute(["termux-sensor", "-n", "1", "-a"])
 
 
 def liveSaveLog(sensors, logfile = 'sensors.log', delay = 1000, limit = 60):
@@ -59,7 +57,7 @@ def liveSaveLog(sensors, logfile = 'sensors.log', delay = 1000, limit = 60):
 
     Parameters
     ----------
-    sensors = tuple of sensors to query data for (or string sensor)
+    sensors = tuple|list of sensors to query data for (or string sensor)
     logfile = file to log to (default is 'sensors.log')
     delay = delay between querying sensor (default 1000 ms)
     limit = number of time to query (default 60, 0 for no limit)
@@ -68,12 +66,6 @@ def liveSaveLog(sensors, logfile = 'sensors.log', delay = 1000, limit = 60):
     > > > sensors = 'gravity', 'Orientation'
     > > > liveSaveLog( sensors , limit = 10 )
     '''
-    if type(sensors) is tuple:
-        sensornames=""
-        for v in sensors:
-            sensornames += v + ","      
-        liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensornames[0:-1]}", logfile)
-    elif type(sensors) is str:
-        liveSave(f"termux-sensor -d {delay} -n {limit} -s {sensors}", logfile)
-    else:
-        return 'Invalid sensors argument'
+    if type(sensors) in (tuple, list):
+        sensors = ",".join(sensors)
+    liveSave(["termux-sensor", "-d", delay, "-n", limit, "-s", sensors], logfile)

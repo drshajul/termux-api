@@ -5,15 +5,15 @@ from .android import execute
 def __dir__():
     return ['generic', 'battery', 'brightness', 'contactlist', 'download', 'fingerprint', 'getfile', 'location', 'torch', 'vibrate', 'volume']
 
-def generic(funcName: str):
+def generic(func: list):
     '''
     Any function can be called, which will be passed directly
         to subprocess.Popen, and result returned. Call this if you
         know what you are doing.
-    eg. termux._generic('termux-toast -g middle -s "Hello"')
+    eg. termux.generic(["termux-toast", "-g", "middle", "-s", "Hello"])
     for more info visit [termux API](https://wiki.termux.com/wiki/Termux:API)
     '''
-    return execute([funcName])
+    return execute(func)
 
 def battery():
     '''

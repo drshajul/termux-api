@@ -10,7 +10,7 @@ def generic(func: list):
     Any function can be called, which will be passed directly
         to subprocess.Popen, and result returned. Call this if you
         know what you are doing.
-    eg. termux.generic(["termux-toast", "-g", "middle", "-s", "Hello"])
+    eg. termux.API.generic(["termux-toast", "-g", "middle", "-s", "Hello"])
     for more info visit [termux API](https://wiki.termux.com/wiki/Termux:API)
     '''
     return execute(func)

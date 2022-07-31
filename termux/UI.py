@@ -16,7 +16,7 @@ from .android import execute
 
 def __radiolike(func: str, opts: list | tuple, title: str):
   v = ["-v"]
-  v.append(','.join(opts))
+  v.append(','.join([str(i) for i in opts]))
   if title is not None:
     v += ["-t", title]
   return execute(["termux-dialog", func] + v)
@@ -54,7 +54,7 @@ def counter(rangeTuple :tuple = None, title :str = None):
     rangeTuple - tuple of 3 numbers (min, max, start) (optional)
     title - set title of dialog (optional)
   '''
-  r = ["-r", ','.join(rangeTuple)]
+  r = ["-r", ','.join([str(i) for i in rangeTuple])]
   if title is not None:
     r += ["-t", title]
   return execute(["termux-dialog", "counter"] + r)

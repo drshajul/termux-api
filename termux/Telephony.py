@@ -29,4 +29,4 @@ def deviceinfo():
     '''
     Get information about the telephony device. 
     '''
-    return execute(["termux-telephony-displayinfo"])
+    return execute(["termux-telephony-deviceinfo"])

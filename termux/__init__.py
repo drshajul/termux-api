@@ -15,13 +15,14 @@ Available modules are:
   termux.TTS - Text to speech
   termux.UI - Dialog Widgets and Toast
   termux.Wifi
+  termux.Wake
 
 For information about available methods, use
   help(termux.<modulename>)
 '''
 
-from . import API, Camera, Clipboard, Sensors, TTS, Wifi, Notification, Media, Microphone, Scheduler, Share, Telephony, UI
+from . import API, Camera, Clipboard, Sensors, TTS, Wifi, Notification, Media, Microphone, Scheduler, Share, Telephony, UI, Wake
 
 
 __all__ = sorted(["API", "Sensors", "Camera", "Clipboard", "TTS", "Wifi", "Notification",
-                  "Media", "Microphone", "Scheduler", "Share", "Telephony", "UI"])
+                  "Media", "Microphone", "Scheduler", "Share", "Telephony", "UI", "Wake"])

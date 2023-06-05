@@ -38,8 +38,8 @@ def send(text, number, sim: int = None):
   if sim is not None:
     opts += ['-s', sim]
   if type(number) is list:
-    opts.append(",".join(number))
+    opts.append("-n", ",".join(number))
   elif type(number) is str:
-    opts.append(number)
+    opts.append("-n", number)
   opts.append(text)
   return execute(["termux-sms-send"] + opts)

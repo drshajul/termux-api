@@ -5,7 +5,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="termux-api", 
-    version="1.2.5.2",
+    version="1.2.5.3",
     author="drshajul",
     author_email="drshajul@gmail.com",
     description="A package for accessing termux-api",
@@ -18,5 +18,5 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.7',
+    python_requires='>=3.10',
 )

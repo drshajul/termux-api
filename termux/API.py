@@ -43,7 +43,13 @@ def vibrate(duration: int = 1000, force: bool = False):
         Force vibrate even in silent mode, default = False
 
     '''
-    return execute(["termux-vibrate", "-d", duration])
+
+    command = ["termux-vibrate", "-d", duration]
+
+    if force:
+        command.append("-f")
+
+    return execute(command)
 
 
 def contactlist():

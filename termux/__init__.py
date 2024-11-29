@@ -5,6 +5,7 @@ Available modules are:
   termux.API - Misc API methods, including generic call
   termux.Camera
   termux.Clipboard
+  termux.Infrared
   termux.Media - Playback and media scanner
   termux.Microphone
   termux.Notification
@@ -22,8 +23,8 @@ For information about available methods, use
   help(termux.<modulename>)
 '''
 
-from . import API, Camera, Clipboard, Sensors, TTS, Wifi, Notification, Media, Microphone, Scheduler, Share, Telephony, UI, Wake, SMS
+from . import API, Camera, Clipboard, Sensors, TTS, Wifi, Notification, Media, Microphone, Scheduler, Share, Telephony, UI, Wake, SMS, Infrared
 
 
 __all__ = sorted(["API", "Sensors", "Camera", "Clipboard", "TTS", "Wifi", "Notification",
-                  "Media", "Microphone", "Scheduler", "Share", "Telephony", "UI", "Wake", "SMS"])
+                  "Media", "Microphone", "Scheduler", "Share", "Telephony", "UI", "Wake", "SMS", "Infrared"])

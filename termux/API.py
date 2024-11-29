@@ -98,7 +98,7 @@ def volume(**kwargs):
       Valid audio streams are: alarm, music, notification, ring, system, call.
     volume: str (optional)
     '''
-    cmd = "termux-volume"
+    cmd = ["termux-volume"]
     if(len(kwargs) > 0):
         stream = "ring"; volume = "5"
         stream = kwargs.get('stream', 'ring')

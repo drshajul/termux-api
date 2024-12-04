@@ -10,7 +10,7 @@
     spinner - Pick a single value from a dropdown spinner
     speech - Obtain speech using device microphone
     text - Input text
-    toast - Show text as toast (transient popup) 
+    toast - Show text as toast (transient popup)
 '''
 from .android import execute
 
@@ -28,7 +28,6 @@ def __hintlike(func: str, hint: str, title: str):
   if title is not None:
     opts += ["-t", title]
   return execute(["termux-dialog", func] + opts)
-   
 
 
 def confirm(hint: str = None, title: str = None):
@@ -74,7 +73,7 @@ def date(format: str = None, title: str = None):
 
 def time(title: str = None):
   '''Pick a time value
-  
+
     title - set title of dialog (optional)
   '''
   return __hintlike("time", hint = None, title = title)
@@ -113,30 +112,31 @@ def spinner(opts: tuple, title: str = None):
   return __radiolike('spinner', opts, title)
 
 def text(hint: str = None, multiline: bool = None, number: bool = None, password: bool = None, title: str = None):
-  '''Text input
+    '''Text input
 
-    hint - text hint (optional)
-    multiline - multiline input (optional)*
-    number - number input (optional)*
-    password - password input (optional)
-    title - set title of dialog (optional)
-
-    * cannot use together 
-  '''
-  if (multiline is not None) and (number is not None):
-    raise ValueError("Cannot use multiline and number together.")
-  opts = []
-  if multiline is not None: 
-    opts.append("-m")
-  if number is not None:
-    opts.append("-n")
-  if password is not None:
-    opts.append("-p")
-  if hint is not None:
-    opts += ["-i", hint]
-  if title is not None:
-    opts += ["-t", title]
-  return execute("termux-dialog", "text", opts)
+    Parameters
+    ----------
+    hint : text hint (optional)\n
+    multiline : multiline input (optional)\*\n
+    number : number input (optional)\*\n
+    password : password input (optional)\n
+    title : set title of dialog (optional)\n
+    \* cannot use together
+    '''
+    if (multiline is not None) and (number is not None):
+        raise ValueError("Cannot use multiline and number together.")
+    opts = []
+    if multiline is not None:
+        opts.append("-m")
+    if number is not None:
+        opts.append("-n")
+    if password is not None:
+        opts.append("-p")
+    if hint is not None:
+        opts += ["-i", hint]
+    if title is not None:
+        opts += ["-t", title]
+    return execute(["termux-dialog", "text"] + opts)
 
 def toast(text: str, short: bool = False, **kwargs):
     '''Show a toast message

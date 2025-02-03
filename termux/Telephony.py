@@ -3,7 +3,7 @@
 Avaliable methods are:
     call       - make a phone call to number (str)
     cellinfo   - retrieve cell information (json)
-    deviceinfo -
+    deviceinfo - retrieve telephony device information (json)
 '''
 
 from .android import execute
@@ -14,6 +14,9 @@ def __dir__():
 def call(phone_number: str):
     '''
     Makes a phone call to number passed as an argument
+    Parameters
+    ----------
+    phone_number: (str) : The phone number to call
     '''
     return execute(["termux-telephony-call", phone_number])
 
@@ -27,6 +30,6 @@ def cellinfo():
 
 def deviceinfo():
     '''
-    Get information about the telephony device. 
+    Get information about the telephony device.
     '''
-    return execute(["termux-telephony-displayinfo"])
+    return execute(["termux-telephony-deviceinfo"])

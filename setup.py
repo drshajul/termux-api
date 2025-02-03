@@ -4,8 +4,8 @@ with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="termux-api", 
-    version="1.2.5.3",
+    name="termux-api",
+    version="1.2.5.4",
     author="drshajul",
     author_email="drshajul@gmail.com",
     description="A package for accessing termux-api",

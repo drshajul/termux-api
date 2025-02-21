@@ -13,8 +13,9 @@
     toast - Show text as toast (transient popup)
 '''
 from .android import execute
+from typing import Union
 
-def __radiolike(func: str, opts: list | tuple, title: str):
+def __radiolike(func: str, opts: Union[list, tuple], title: str):
   v = ["-v"]
   v.append(','.join([str(i) for i in opts]))
   if title is not None:
